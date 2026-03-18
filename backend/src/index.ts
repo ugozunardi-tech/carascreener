@@ -39,9 +39,11 @@ app.use('/api/supplychain', supplychainRouter);
 app.use('/api/news', newsRouter);
 app.use('/api/deepanalysis', deepanalysisRouter);
 
-// 404 handler
-app.use((_req, res) => {
-  res.status(404).json({ error: 'Not found' });
+// Serve pre-built frontend (production / Vercel)
+const DIST = path.resolve(__dirname, '../../frontend/dist');
+app.use(express.static(DIST));
+app.get('*', (_req, res) => {
+  res.sendFile(path.join(DIST, 'index.html'));
 });
 
 // Error handler

@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "outputDirectory": "frontend/dist",
   "builds": [
     {
       "src": "backend/src/index.ts",
@@ -9,15 +8,8 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "backend/src/index.ts"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "backend/src/index.ts"
     }
   ],
   "env": {
