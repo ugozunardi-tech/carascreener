@@ -7,8 +7,12 @@ import path from 'path';
 const router = Router();
 const memCache = new NodeCache({ stdTTL: 86400 }); // 24h memory cache
 
-const DISK_DIR = path.join(__dirname, '../../.cache/deepanalysis');
-if (!fs.existsSync(DISK_DIR)) fs.mkdirSync(DISK_DIR, { recursive: true });
+const DISK_DIR = process.env.VERCEL
+  ? '/tmp/deepanalysis'
+  : path.join(__dirname, '../../.cache/deepanalysis');
+try {
+  if (!fs.existsSync(DISK_DIR)) fs.mkdirSync(DISK_DIR, { recursive: true });
+} catch { /* read-only filesystem — disk cache disabled */ }
 
 function diskPath(symbol: string) { return path.join(DISK_DIR, `${symbol}.json`); }
 function readDisk(symbol: string) {
@@ -26,7 +30,11 @@ function writeDisk(symbol: string, data: unknown) {
   catch { /* non-fatal */ }
 }
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+let _openai: OpenAI | null = null;
+function getOpenAI(): OpenAI {
+  if (!_openai) _openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  return _openai;
+}
 
 export interface SupplyChainAnalysis {
   symbol: string;
@@ -118,7 +126,7 @@ Requirements:
 Return ONLY valid JSON, no markdown, no commentary.`;
 
   try {
-    const completion = await openai.chat.completions.create({
+    const completion = await getOpenAI().chat.completions.create({
       model: 'gpt-4o-mini',
       temperature: 0.25,
       max_tokens: 2500,

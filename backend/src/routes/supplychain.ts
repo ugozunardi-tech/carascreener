@@ -10,8 +10,13 @@ const router = Router();
 const cache = new NodeCache({ stdTTL: 86400 });
 
 // Persistent disk cache — survives restarts so we never re-call GPT for the same symbol
-const DISK_CACHE_DIR = path.join(__dirname, '../../.cache/supplychain');
-if (!fs.existsSync(DISK_CACHE_DIR)) fs.mkdirSync(DISK_CACHE_DIR, { recursive: true });
+// On Vercel (read-only fs), use /tmp; locally use .cache/supplychain
+const DISK_CACHE_DIR = process.env.VERCEL
+  ? '/tmp/supplychain'
+  : path.join(__dirname, '../../.cache/supplychain');
+try {
+  if (!fs.existsSync(DISK_CACHE_DIR)) fs.mkdirSync(DISK_CACHE_DIR, { recursive: true });
+} catch { /* read-only filesystem — disk cache disabled */ }
 
 function diskCachePath(symbol: string) {
   return path.join(DISK_CACHE_DIR, `${symbol}.json`);
@@ -27,7 +32,11 @@ function writeDiskCache(symbol: string, data: unknown) {
   catch { /* non-fatal */ }
 }
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+let _openai: OpenAI | null = null;
+function getOpenAI(): OpenAI {
+  if (!_openai) _openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  return _openai;
+}
 
 // GET /api/supplychain/:symbol?name=Company%20Name
 router.get('/:symbol', async (req: Request, res: Response) => {
@@ -113,7 +122,7 @@ Return a JSON object with this exact structure:
 Return ONLY valid JSON, no markdown.`;
 
   try {
-    const completion = await openai.chat.completions.create({
+    const completion = await getOpenAI().chat.completions.create({
       model: 'gpt-4o-mini',
       temperature: 0.2,
       response_format: { type: 'json_object' },
