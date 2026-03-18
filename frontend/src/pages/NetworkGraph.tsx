@@ -4,7 +4,7 @@ import {
   NODES, EDGES, type GraphNode, type GraphEdge, type EdgeType, type RiskLevel,
 } from '../data/connections';
 import { propagateImpact, scoreColor, scoreLabel, type ScenarioType, type NodeImpact } from '../utils/impact';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   ZoomIn, ZoomOut, Maximize2, Filter, X, ExternalLink,
   ArrowDownLeft, ArrowUpRight, Zap, AlertTriangle, ChevronDown, Search, Layers, LayoutList, Eye, BarChart2, Activity,
@@ -217,10 +217,11 @@ async function searchSymbols(q: string) {
 export default function NetworkGraph() {
   const svgRef   = useRef<SVGSVGElement>(null);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   // ── State ─────────────────────────────────────────────────────────────────
   const [tooltip,           setTooltip]           = useState<Tooltip | null>(null);
-  const [selectedPortfolio, setSelectedPortfolio] = useState('all');
+  const [selectedPortfolio, setSelectedPortfolio] = useState(() => searchParams.get('portfolio') || 'all');
   const [selectedEdgeType,  setSelectedEdgeType]  = useState('all');
   const [selectedRisk,      setSelectedRisk]      = useState('all');
   const [showExtended,      setShowExtended]      = useState(false);

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Plus, RefreshCw, AlertCircle, ArrowUpDown, ArrowUp, ArrowDown, Trash2, ChevronRight, Search, X } from 'lucide-react';
+import { Plus, RefreshCw, AlertCircle, ArrowUpDown, ArrowUp, ArrowDown, Trash2, ChevronRight, Search, X, Network } from 'lucide-react';
 import { usePortfolio } from '../hooks/usePortfolios';
 import LoadingSpinner from '../components/UI/LoadingSpinner';
 import AddStockModal from '../components/Portfolio/AddStockModal';
@@ -242,6 +242,12 @@ export default function PortfolioDashboard() {
             LIVE · 30s
             {updatedSymbols.size > 0 && <span style={{ color: '#00d4ff' }}> +{updatedSymbols.size}</span>}
           </span>
+          {portfolio.id.includes('nvidia-sc') && (
+            <button onClick={() => navigate('/?portfolio=nvidia-sc')} className="flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold border transition-colors hover:opacity-80"
+              style={{ borderColor: '#76b900', color: '#76b900', background: '#76b90015' }}>
+              <Network className="w-2.5 h-2.5" /> VIEW NETWORK
+            </button>
+          )}
           <button onClick={refresh} className="flex items-center gap-1 px-2 py-0.5 text-[10px] border transition-colors hover:opacity-80"
             style={{ borderColor: BORDER, color: MUTED }}>
             <RefreshCw className="w-2.5 h-2.5" /> REFRESH
