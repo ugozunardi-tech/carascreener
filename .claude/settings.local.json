@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd:*)",
+      "Bash(npm install:*)",
+      "Bash(cat:*)",
+      "Bash(curl:*)",
+      "Bash(lsof:*)",
+      "Bash(node:*)",
+      "Bash(npm run:*)",
+      "Bash(npx tsc:*)",
+      "Bash(sleep:*)",
+      "Bash(ls:*)",
+      "Bash(which gh:*)",
+      "Bash(which git:*)",
+      "Bash(which brew:*)",
+      "Bash(brew install:*)",
+      "Bash(git rm:*)"
+    ]
+  }
+}

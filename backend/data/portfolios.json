@@ -1,0 +1,1259 @@
+[
+  {
+    "id": "mmtu4uqyp3d43",
+    "name": "My Watchlist",
+    "color": "#00d4ff",
+    "description": "Global equity watchlist — multi-sector",
+    "stocks": [
+      {
+        "symbol": "MSFT",
+        "name": "Microsoft Corp.",
+        "sector": "Technology",
+        "theme": "Cloud/AI",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:50:04.429Z"
+      },
+      {
+        "symbol": "ASML",
+        "name": "ASML Holding N.V.",
+        "sector": "Technology",
+        "theme": "Semiconductor Equipment",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:50:04.500Z"
+      },
+      {
+        "symbol": "AVGO",
+        "name": "Broadcom Inc.",
+        "sector": "Technology",
+        "theme": "Semiconductors/AI",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:50:04.535Z"
+      },
+      {
+        "symbol": "ZS",
+        "name": "Zscaler Inc.",
+        "sector": "Technology",
+        "theme": "Cybersecurity/Cloud",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-16T23:50:04.566Z"
+      },
+      {
+        "symbol": "TMO",
+        "name": "Thermo Fisher Scientific",
+        "sector": "Healthcare",
+        "theme": "Life Sciences Tools",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:50:04.594Z"
+      },
+      {
+        "symbol": "SPGI",
+        "name": "S&P Global Inc.",
+        "sector": "Financial",
+        "theme": "Financial Data",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-16T23:50:04.623Z"
+      },
+      {
+        "symbol": "PGY",
+        "name": "Pagaya Technologies",
+        "sector": "Financial",
+        "theme": "AI/Fintech",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:50:04.651Z"
+      },
+      {
+        "symbol": "AMZN",
+        "name": "Amazon.com Inc.",
+        "sector": "Consumer",
+        "theme": "E-Commerce/Cloud",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:50:04.681Z"
+      },
+      {
+        "symbol": "UNA",
+        "name": "Unilever N.V.",
+        "sector": "Consumer",
+        "theme": "Consumer Staples",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-16T23:50:04.709Z"
+      },
+      {
+        "symbol": "RACE",
+        "name": "Ferrari N.V.",
+        "sector": "Luxury",
+        "theme": "Luxury Auto",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:50:04.737Z"
+      },
+      {
+        "symbol": "SHEL",
+        "name": "Shell plc",
+        "sector": "Energy",
+        "theme": "Oil & Gas",
+        "priority": "LOW",
+        "addedAt": "2026-03-16T23:50:04.766Z"
+      },
+      {
+        "symbol": "AIR",
+        "name": "Airbus SE",
+        "sector": "Industrials",
+        "theme": "Aerospace",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-16T23:50:04.794Z"
+      },
+      {
+        "symbol": "GTT",
+        "name": "GTT Communications",
+        "sector": "Industrials",
+        "theme": "LNG Technology",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-16T23:50:04.836Z"
+      },
+      {
+        "symbol": "QXO",
+        "name": "QXO Inc.",
+        "sector": "Industrials",
+        "theme": "Distribution/Tech",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:50:04.866Z"
+      },
+      {
+        "symbol": "KRMN",
+        "name": "Karman Holdings",
+        "sector": "Industrials",
+        "theme": "Defense/Space",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:50:04.895Z"
+      },
+      {
+        "symbol": "R3NK",
+        "name": "RENK Group AG",
+        "sector": "Industrials",
+        "theme": "Defense",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:50:04.923Z"
+      },
+      {
+        "symbol": "MP",
+        "name": "MP Materials Corp.",
+        "sector": "Materials",
+        "theme": "Rare Earth",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:50:04.951Z"
+      },
+      {
+        "symbol": "RACE.MI",
+        "name": "FERRARI NV",
+        "sector": "Unknown",
+        "theme": "",
+        "priority": "HIGH",
+        "addedAt": "2026-03-17T10:25:16.353Z"
+      }
+    ],
+    "createdAt": "2026-03-16T23:49:15.562Z",
+    "updatedAt": "2026-03-17T10:25:16.353Z"
+  },
+  {
+    "id": "mmtuae2xfuchu",
+    "name": "Robotics Supply Chain",
+    "color": "#f59e0b",
+    "description": "Critical materials securing US humanoid robotics supply chain vs China",
+    "stocks": [
+      {
+        "symbol": "MP",
+        "name": "MP Materials Corp.",
+        "sector": "Magnet Metals",
+        "theme": "NdFeB Magnets / Rare Earth Mining",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:54:26.475Z"
+      },
+      {
+        "symbol": "UUUU",
+        "name": "Energy Fuels Inc.",
+        "sector": "Magnet Metals",
+        "theme": "Monazite → NdPr Oxide Processing",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:54:26.535Z"
+      },
+      {
+        "symbol": "LYSDY",
+        "name": "Lynas Rare Earths (ADR)",
+        "sector": "Magnet Metals",
+        "theme": "Heavy REE — Only non-China at Scale",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:54:26.567Z"
+      },
+      {
+        "symbol": "USAR",
+        "name": "US Critical Materials Corp.",
+        "sector": "Magnet Metals",
+        "theme": "Heavy REE → Sintered NdFeB Magnets",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:54:26.602Z"
+      },
+      {
+        "symbol": "ALOY",
+        "name": "Noveon Magnetics (ALOY)",
+        "sector": "Magnet Metals",
+        "theme": "Defense-Grade RE Alloys / SmCo",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-16T23:54:26.639Z"
+      },
+      {
+        "symbol": "NEO",
+        "name": "Neo Performance Materials (TSX)",
+        "sector": "Magnet Metals",
+        "theme": "Only Western NdFeB Powder at Scale",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:54:26.673Z"
+      },
+      {
+        "symbol": "ILKAY",
+        "name": "Iluka Resources (ADR)",
+        "sector": "Magnet Metals",
+        "theme": "Rare Earth Refinery — Australia",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-16T23:54:26.704Z"
+      },
+      {
+        "symbol": "ARNUF",
+        "name": "Arafura Rare Earths (ASX)",
+        "sector": "Magnet Metals",
+        "theme": "Ore-to-Oxide NdPr Facility",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-16T23:54:26.734Z"
+      },
+      {
+        "symbol": "ATI",
+        "name": "ATI Inc.",
+        "sector": "Structural Metals",
+        "theme": "Titanium & Specialty Alloys / Joints",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:54:26.763Z"
+      },
+      {
+        "symbol": "CRS",
+        "name": "Carpenter Technology Corp.",
+        "sector": "Structural Metals",
+        "theme": "High-Strength Steel / Titanium Alloys",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:54:26.792Z"
+      },
+      {
+        "symbol": "FCX",
+        "name": "Freeport-McMoRan Inc.",
+        "sector": "Structural Metals",
+        "theme": "Molybdenum (Roller Screws) + Copper",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:54:26.823Z"
+      },
+      {
+        "symbol": "NB",
+        "name": "NioCorp Developments Ltd.",
+        "sector": "Structural Metals",
+        "theme": "Niobium / Scandium / Titanium (US)",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:54:26.852Z"
+      },
+      {
+        "symbol": "MTRN",
+        "name": "Materion Corp.",
+        "sector": "Structural Metals",
+        "theme": "Beryllium Processing — Critical",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-16T23:54:26.881Z"
+      },
+      {
+        "symbol": "LGO",
+        "name": "Largo Inc.",
+        "sector": "Structural Metals",
+        "theme": "Vanadium Processing",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-16T23:54:26.910Z"
+      },
+      {
+        "symbol": "ALB",
+        "name": "Albemarle Corp.",
+        "sector": "Battery & Compute",
+        "theme": "Lithium Extraction / Battery Metals",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:54:26.939Z"
+      },
+      {
+        "symbol": "EAF",
+        "name": "GrafTech International",
+        "sector": "Battery & Compute",
+        "theme": "High-Purity Graphite / Battery Anodes",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-16T23:54:26.966Z"
+      },
+      {
+        "symbol": "TECK",
+        "name": "Teck Resources Ltd.",
+        "sector": "Battery & Compute",
+        "theme": "Germanium — Largest non-China Prod.",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:54:26.995Z"
+      },
+      {
+        "symbol": "BMM",
+        "name": "Benchmark Mineral Intelligence",
+        "sector": "Battery & Compute",
+        "theme": "Germanium / Gallium Processing (US)",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:54:27.025Z"
+      },
+      {
+        "symbol": "VNP",
+        "name": "VG Acquisition (Gallium)",
+        "sector": "Battery & Compute",
+        "theme": "Gallium / Germanium / Indium Sensors",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-16T23:54:27.053Z"
+      },
+      {
+        "symbol": "SYR",
+        "name": "Syrah Resources (ASX)",
+        "sector": "Battery & Compute",
+        "theme": "Balama Graphite Mine",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-16T23:54:27.082Z"
+      }
+    ],
+    "createdAt": "2026-03-16T23:53:33.897Z",
+    "updatedAt": "2026-03-16T23:54:27.082Z"
+  },
+  {
+    "id": "mmtufs3sl7j3z",
+    "name": "AI Infrastructure",
+    "color": "#a78bfa",
+    "description": "Own the means of compute — bottlenecks, materials, datacenters",
+    "stocks": [
+      {
+        "symbol": "NBIS",
+        "name": "Nebius Group N.V.",
+        "sector": "Datacenter & Power",
+        "theme": "AI Cloud Infrastructure",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:59:26.691Z"
+      },
+      {
+        "symbol": "VRT",
+        "name": "Vertiv Holdings Co.",
+        "sector": "Datacenter & Power",
+        "theme": "Power/Cooling for AI Datacenters",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:59:26.778Z"
+      },
+      {
+        "symbol": "BE",
+        "name": "Bloom Energy Corp.",
+        "sector": "Datacenter & Power",
+        "theme": "Fuel Cell Power for Datacenters",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:59:26.808Z"
+      },
+      {
+        "symbol": "XLU",
+        "name": "Utilities Select Sector ETF",
+        "sector": "Datacenter & Power",
+        "theme": "Grid / Power Infrastructure ETF",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-16T23:59:26.837Z"
+      },
+      {
+        "symbol": "COHR",
+        "name": "Coherent Corp.",
+        "sector": "Photonics",
+        "theme": "Optical Transceivers / LiDAR",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:59:26.866Z"
+      },
+      {
+        "symbol": "LITE",
+        "name": "Lumentum Holdings Inc.",
+        "sector": "Photonics",
+        "theme": "Laser / Optical Networking",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:59:26.896Z"
+      },
+      {
+        "symbol": "AAOI",
+        "name": "Applied Optoelectronics Inc.",
+        "sector": "Photonics",
+        "theme": "Optical Components / Datacenter",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-16T23:59:26.927Z"
+      },
+      {
+        "symbol": "TSEM",
+        "name": "Tower Semiconductor Ltd.",
+        "sector": "Photonics",
+        "theme": "Analog / RF Chips / Photonics",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:59:26.955Z"
+      },
+      {
+        "symbol": "NVDA",
+        "name": "NVIDIA Corp.",
+        "sector": "Semiconductors",
+        "theme": "GPU / AI Training & Inference",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:59:26.985Z"
+      },
+      {
+        "symbol": "TSM",
+        "name": "Taiwan Semiconductor Mfg.",
+        "sector": "Semiconductors",
+        "theme": "Leading-Edge Chip Foundry",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:59:27.012Z"
+      },
+      {
+        "symbol": "ASML",
+        "name": "ASML Holding N.V.",
+        "sector": "Semiconductors",
+        "theme": "EUV Lithography — Monopoly",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:59:27.041Z"
+      },
+      {
+        "symbol": "INTC",
+        "name": "Intel Corp.",
+        "sector": "Semiconductors",
+        "theme": "Foundry Rebuild / x86",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-16T23:59:27.068Z"
+      },
+      {
+        "symbol": "MU",
+        "name": "Micron Technology Inc.",
+        "sector": "Memory",
+        "theme": "DRAM / HBM for AI GPUs",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:59:27.101Z"
+      },
+      {
+        "symbol": "SNDK",
+        "name": "SanDisk Corp.",
+        "sector": "Memory",
+        "theme": "NAND Flash Memory",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-16T23:59:27.131Z"
+      },
+      {
+        "symbol": "HXSCL",
+        "name": "SK Hynix Inc. (OTC)",
+        "sector": "Memory",
+        "theme": "HBM3E — NVIDIA's #1 HBM Supplier",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:59:27.161Z"
+      },
+      {
+        "symbol": "SSNLF",
+        "name": "Samsung Electronics (OTC)",
+        "sector": "Memory",
+        "theme": "HBM / NAND / Logic Foundry",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:59:27.189Z"
+      },
+      {
+        "symbol": "AVGO",
+        "name": "Broadcom Inc.",
+        "sector": "ASICs",
+        "theme": "Custom AI Chips (Google TPU, Meta)",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:59:27.217Z"
+      },
+      {
+        "symbol": "MRVL",
+        "name": "Marvell Technology Inc.",
+        "sector": "ASICs",
+        "theme": "Custom AI Silicon / Networking",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:59:27.255Z"
+      },
+      {
+        "symbol": "MDTKF",
+        "name": "MediaTek Inc. (OTC)",
+        "sector": "ASICs",
+        "theme": "Edge AI / Mobile ASICs",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-16T23:59:27.285Z"
+      },
+      {
+        "symbol": "TER",
+        "name": "Teradyne Inc.",
+        "sector": "Test & Yield",
+        "theme": "Semiconductor Test Equipment",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:59:27.314Z"
+      },
+      {
+        "symbol": "AEHR",
+        "name": "Aehr Test Systems",
+        "sector": "Test & Yield",
+        "theme": "Wafer-Level Burn-In / SiC Test",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:59:27.341Z"
+      },
+      {
+        "symbol": "ATEYY",
+        "name": "Advantest Corp. (ADR)",
+        "sector": "Test & Yield",
+        "theme": "Memory & SoC Test Equipment",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:59:27.369Z"
+      },
+      {
+        "symbol": "AXTI",
+        "name": "AXT Inc.",
+        "sector": "Materials",
+        "theme": "Semiconductor Substrates (InP/GaAs)",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:59:27.399Z"
+      },
+      {
+        "symbol": "COPX",
+        "name": "Global X Copper Miners ETF",
+        "sector": "Materials",
+        "theme": "Copper — AI Datacenter Wiring",
+        "priority": "HIGH",
+        "addedAt": "2026-03-16T23:59:27.428Z"
+      },
+      {
+        "symbol": "SOI",
+        "name": "Solaris Energy Infrastructure",
+        "sector": "Materials",
+        "theme": "Energy Infrastructure / Grid",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-16T23:59:27.464Z"
+      }
+    ],
+    "createdAt": "2026-03-16T23:57:45.352Z",
+    "updatedAt": "2026-03-16T23:59:27.464Z"
+  },
+  {
+    "id": "mmuj47m9qyinm",
+    "name": "My investments",
+    "color": "#00ff88",
+    "description": "",
+    "stocks": [],
+    "createdAt": "2026-03-17T11:28:35.985Z",
+    "updatedAt": "2026-03-17T11:28:35.985Z"
+  },
+  {
+    "id": "nvidia-sc-mmvvq9ck",
+    "name": "NVIDIA SC",
+    "color": "#76b900",
+    "description": "Full NVIDIA supply chain — L-2 mining to L6 ODM, 9 layers, 87 companies",
+    "stocks": [
+      {
+        "symbol": "4063.T",
+        "name": "Shin-Etsu Chemical",
+        "sector": "Wafer/RE",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.227Z"
+      },
+      {
+        "symbol": "3436.T",
+        "name": "SUMCO Corporation",
+        "sector": "Wafer",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "6488.TW",
+        "name": "GlobalWafers",
+        "sector": "Wafer",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "WAF.DE",
+        "name": "Siltronic AG",
+        "sector": "Wafer",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "WCH.DE",
+        "name": "Wacker Chemie",
+        "sector": "PolySi",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "MP",
+        "name": "MP Materials",
+        "sector": "RE Mining",
+        "theme": "NVIDIA SC",
+        "priority": "LOW",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "LYC.AX",
+        "name": "Lynas Rare Earths",
+        "sector": "RE Mining",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "GLEN.L",
+        "name": "Glencore",
+        "sector": "Mining",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "FCX",
+        "name": "Freeport-McMoRan",
+        "sector": "Cu Mining",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "UMI.BR",
+        "name": "Umicore",
+        "sector": "Refining",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "BHP",
+        "name": "BHP Group",
+        "sector": "Mining",
+        "theme": "NVIDIA SC",
+        "priority": "LOW",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "4186.T",
+        "name": "Tokyo Ohka Kogyo (TOK)",
+        "sector": "Fotoresist",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "4901.T",
+        "name": "Fujifilm Holdings",
+        "sector": "Fotoresist/CMP",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "4005.T",
+        "name": "Sumitomo Chemical",
+        "sector": "Fotoresist",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "4401.T",
+        "name": "Adeka Corporation",
+        "sector": "MOR/ALD",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "033290.KQ",
+        "name": "Dongjin Semichem",
+        "sector": "Fotoresist",
+        "theme": "NVIDIA SC",
+        "priority": "LOW",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "ENTG",
+        "name": "Entegris",
+        "sector": "CMP/Chemicals",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "DD",
+        "name": "DuPont / QNITY",
+        "sector": "CMP Pad",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "5384.T",
+        "name": "Fujimi Incorporated",
+        "sector": "CMP",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "4004.T",
+        "name": "Resonac Holdings",
+        "sector": "CMP/Gas/Pkg",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "MRK.DE",
+        "name": "Merck KGaA",
+        "sector": "Chemicals",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "BAS.DE",
+        "name": "BASF SE",
+        "sector": "Chemicals",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "AI.PA",
+        "name": "Air Liquide",
+        "sector": "Gas",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "LIN",
+        "name": "Linde plc",
+        "sector": "Gas",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "APD",
+        "name": "Air Products",
+        "sector": "Gas",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "4091.T",
+        "name": "Nippon Sanso / Matheson",
+        "sector": "Gas",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "4932.T",
+        "name": "Central Glass",
+        "sector": "Gas WF6",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "4109.T",
+        "name": "Stella Chemifa",
+        "sector": "HF",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "4979.T",
+        "name": "Kanto Chemical",
+        "sector": "Etchants",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "036830.KQ",
+        "name": "Soulbrain Co.",
+        "sector": "Etchants",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "ASML",
+        "name": "ASML",
+        "sector": "EUV Monopoly",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "8035.T",
+        "name": "Tokyo Electron (TEL)",
+        "sector": "Coater 88%",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "AMAT",
+        "name": "Applied Materials",
+        "sector": "Equipment",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "LRCX",
+        "name": "Lam Research",
+        "sector": "Etching",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "KLAC",
+        "name": "KLA Corporation",
+        "sector": "Metrologia",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "ASMI",
+        "name": "ASM International",
+        "sector": "ALD",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "TER",
+        "name": "Teradyne",
+        "sector": "Test ATE",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "6857.T",
+        "name": "Advantest",
+        "sector": "Test ATE",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "TSM",
+        "name": "TSMC",
+        "sector": "Foundry",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "005930.KS",
+        "name": "Samsung Foundry",
+        "sector": "Foundry alt.",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "GFS",
+        "name": "GlobalFoundries",
+        "sector": "Foundry mature",
+        "theme": "NVIDIA SC",
+        "priority": "LOW",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "ASX",
+        "name": "ASE Technology (SPIL)",
+        "sector": "OSAT",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "AMKR",
+        "name": "Amkor Technology",
+        "sector": "OSAT",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "6239.TW",
+        "name": "Powertech Technology",
+        "sector": "PFLO",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "2802.T",
+        "name": "Ajinomoto Co.",
+        "sector": "ABF Film",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "6752.T",
+        "name": "Panasonic Holdings",
+        "sector": "ABF/LMC",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "5711.T",
+        "name": "Mitsubishi Materials",
+        "sector": "ABF/Cu",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "3402.T",
+        "name": "Toray Industries",
+        "sector": "Film",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "4203.T",
+        "name": "Sumitomo Bakelite",
+        "sector": "LMC",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "HEN3.DE",
+        "name": "Henkel AG",
+        "sector": "Underfill",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "MMM",
+        "name": "3M Company",
+        "sector": "TIM/Film",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "5401.T",
+        "name": "Nippon Steel Chem. & Mat.",
+        "sector": "Solder Bump",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "3407.T",
+        "name": "Asahi Kasei",
+        "sector": "PSPI",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "000660.KS",
+        "name": "SK Hynix",
+        "sector": "HBM Primary",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "MU",
+        "name": "Micron Technology",
+        "sector": "HBM Secondary",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "005930.KS",
+        "name": "Samsung Memory",
+        "sector": "HBM Tertiary",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "4062.T",
+        "name": "Ibiden Co.",
+        "sector": "FC-BGA",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "6967.T",
+        "name": "Shinko Electric",
+        "sector": "FC-BGA",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "3037.TW",
+        "name": "Unimicron Technology",
+        "sector": "FC-BGA",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "8046.TW",
+        "name": "Nan Ya PCB",
+        "sector": "Substrati",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "ATS.VI",
+        "name": "AT&S",
+        "sector": "Substrati EU",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "TTMI",
+        "name": "TTM Technologies",
+        "sector": "PCB",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "6981.T",
+        "name": "Murata Manufacturing",
+        "sector": "MLCC",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "6762.T",
+        "name": "TDK Corporation",
+        "sector": "MLCC/Magneti",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "2327.TW",
+        "name": "Yageo Corporation",
+        "sector": "MLCC/Res.",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "009150.KS",
+        "name": "Samsung Electro-Mechanics",
+        "sector": "MLCC",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "APH",
+        "name": "Amphenol",
+        "sector": "Connettori",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "TEL",
+        "name": "TE Connectivity",
+        "sector": "Connettori",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "VRT",
+        "name": "Vertiv Holdings",
+        "sector": "Power/Cooling",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "MPWR",
+        "name": "Monolithic Power Sys.",
+        "sector": "VRM",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "TXN",
+        "name": "Texas Instruments",
+        "sector": "VRM",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "IFX.DE",
+        "name": "Infineon Technologies",
+        "sector": "Power",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "VICR",
+        "name": "Vicor Corporation",
+        "sector": "Power",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "NVTS",
+        "name": "Navitas Semiconductor",
+        "sector": "GaN Power",
+        "theme": "NVIDIA SC",
+        "priority": "LOW",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "COHR",
+        "name": "Coherent Corp.",
+        "sector": "Ottica",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "LITE",
+        "name": "Lumentum Holdings",
+        "sector": "Ottica",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "2345.TW",
+        "name": "Accton Technology",
+        "sector": "Networking",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "ASTEK.OL",
+        "name": "Asetek",
+        "sector": "Liquid Cooling",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "2317.TW",
+        "name": "Foxconn / Hon Hai",
+        "sector": "ODM",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "SMCI",
+        "name": "Supermicro (SMCI)",
+        "sector": "Server AI",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "2382.TW",
+        "name": "Quanta Computer",
+        "sector": "ODM",
+        "theme": "NVIDIA SC",
+        "priority": "HIGH",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "3231.TW",
+        "name": "Wistron Corporation",
+        "sector": "ODM",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "2356.TW",
+        "name": "Inventec Corporation",
+        "sector": "ODM",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "DELL",
+        "name": "Dell Technologies",
+        "sector": "OEM",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "HPE",
+        "name": "HPE",
+        "sector": "OEM",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "0992.HK",
+        "name": "Lenovo Group",
+        "sector": "OEM",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "CLS",
+        "name": "Celestica",
+        "sector": "EMS/Design",
+        "theme": "NVIDIA SC",
+        "priority": "MEDIUM",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      },
+      {
+        "symbol": "JBL",
+        "name": "Jabil Inc.",
+        "sector": "EMS",
+        "theme": "NVIDIA SC",
+        "priority": "LOW",
+        "addedAt": "2026-03-18T10:09:26.228Z"
+      }
+    ],
+    "createdAt": "2026-03-18T10:09:26.228Z",
+    "updatedAt": "2026-03-18T10:09:26.228Z"
+  }
+]

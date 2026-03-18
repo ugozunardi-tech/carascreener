@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-bg-primary text-text-primary font-sans;
+    margin: 0; padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-image: 
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 212, 255, 0.04) 0%, transparent 60%);
+  }
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { @apply bg-bg-primary; }
+  ::-webkit-scrollbar-thumb { @apply bg-border-secondary rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-text-muted; }
+}
+
+@layer components {
+  /* ── Price flash ── */
+  .price-flash-green { animation: flashGreen 0.9s ease-out forwards; }
+  .price-flash-red   { animation: flashRed 0.9s ease-out forwards; }
+
+  /* ── Cards ── */
+  .glass-card {
+    @apply bg-bg-card border border-border-primary rounded-xl;
+    background: linear-gradient(135deg, rgba(21,28,46,0.95) 0%, rgba(17,24,39,0.9) 100%);
+    box-shadow: 0 1px 0 0 rgba(0,212,255,0.04) inset, 0 8px 32px rgba(0,0,0,0.4);
+  }
+  .glass-card-glow {
+    @apply glass-card;
+    box-shadow: 0 0 0 1px rgba(0,212,255,0.08) inset, 0 8px 32px rgba(0,0,0,0.5), 0 0 60px rgba(0,212,255,0.03);
+  }
+
+  /* ── Stat cards ── */
+  .stat-card {
+    @apply relative overflow-hidden rounded-xl border border-border-primary px-5 py-4;
+    background: linear-gradient(135deg, #151c2e 0%, #111827 100%);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .stat-card::before {
+    content: '';
+    @apply absolute inset-0 opacity-0;
+    background: radial-gradient(circle at 50% 0%, rgba(0,212,255,0.06), transparent 70%);
+    transition: opacity 0.3s;
+  }
+  .stat-card:hover::before { opacity: 1; }
+  .stat-card:hover { @apply border-border-secondary; box-shadow: 0 0 30px rgba(0,212,255,0.06); }
+
+  /* ── Ticker tape ── */
+  .ticker-tape {
+    @apply overflow-hidden relative bg-bg-secondary border-b border-border-primary;
+  }
+  .ticker-content {
+    display: flex;
+    white-space: nowrap;
+    animation: ticker 60s linear infinite;
+    width: max-content;
+  }
+  .ticker-content:hover { animation-play-state: paused; }
+
+  /* ── Table ── */
+  .data-table { @apply w-full text-sm border-collapse; }
+  .data-table th {
+    @apply px-3 py-2.5 text-left text-[10px] font-semibold text-text-muted uppercase tracking-widest;
+    background: rgba(10,14,26,0.8);
+    border-bottom: 1px solid rgba(30,45,74,0.8);
+  }
+  .data-table tr {
+    @apply border-b cursor-pointer;
+    border-color: rgba(30,45,74,0.4);
+    transition: background 0.12s;
+  }
+  .data-table tr:hover { background: rgba(0,212,255,0.03); }
+  .data-table tr.row-high { border-left: 2px solid rgba(255,59,59,0.5); }
+  .data-table tr.row-high:hover { background: rgba(255,59,59,0.03); }
+
+  /* ── Priority badges ── */
+  .badge-high   { @apply text-[10px] font-bold font-mono px-2 py-0.5 rounded-sm tracking-widest; background: rgba(255,59,59,0.12); color: #ff3b3b; border: 1px solid rgba(255,59,59,0.25); }
+  .badge-medium { @apply text-[10px] font-bold font-mono px-2 py-0.5 rounded-sm tracking-widest; background: rgba(255,215,0,0.10); color: #ffd700; border: 1px solid rgba(255,215,0,0.25); }
+  .badge-low    { @apply text-[10px] font-bold font-mono px-2 py-0.5 rounded-sm tracking-widest; background: rgba(74,85,104,0.20); color: #64748b; border: 1px solid rgba(74,85,104,0.3); }
+
+  /* ── Sector heatmap cells ── */
+  .heat-cell {
+    @apply relative rounded-lg px-3 py-2.5 overflow-hidden cursor-pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .heat-cell:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+
+  /* ── Glow text ── */
+  .glow-green { text-shadow: 0 0 20px rgba(0,255,136,0.4); }
+  .glow-red   { text-shadow: 0 0 20px rgba(255,59,59,0.4); }
+  .glow-cyan  { text-shadow: 0 0 20px rgba(0,212,255,0.5); }
+
+  /* ── Market status pill ── */
+  .market-open   { @apply text-accent-green; }
+  .market-closed { @apply text-accent-red; }
+  .market-pre    { @apply text-accent-yellow; }
+
+  /* ── Tab button ── */
+  .tab-btn { @apply px-4 py-2 text-sm font-medium border-b-2 border-transparent text-text-secondary transition-all; }
+  .tab-btn.active { @apply text-accent-cyan border-accent-cyan; }
+  .tab-btn:hover:not(.active) { @apply text-text-primary; }
+
+  /* ── Number display ── */
+  .num-positive { @apply text-accent-green font-mono; }
+  .num-negative { @apply text-accent-red font-mono; }
+  .num-neutral  { @apply text-text-muted font-mono; }
+
+  /* ── Input ── */
+  .input-dark {
+    @apply bg-bg-tertiary border border-border-primary rounded-lg text-sm text-text-primary placeholder-text-muted;
+    @apply focus:outline-none focus:border-accent-cyan/40 transition-colors;
+  }
+}
+
+/* ── Keyframes ── */
+@keyframes flashGreen {
+  0%   { background: rgba(0,255,136,0.18); }
+  100% { background: transparent; }
+}
+@keyframes flashRed {
+  0%   { background: rgba(255,59,59,0.18); }
+  100% { background: transparent; }
+}
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+@keyframes slideUp {
+  from { transform: translateY(12px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scanline {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+@keyframes slideInRight {
+  from { transform: translateX(20px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+.animate-slide-up        { animation: slideUp 0.3s ease-out; }
+.animate-fade-in         { animation: fadeIn 0.4s ease-out; }
+.animate-slide-in-right  { animation: slideInRight 0.25s ease-out; }
+.animate-pulse-dot       { animation: pulseDot 2s ease-in-out infinite; }
+.animate-blink           { animation: blink 1s step-end infinite; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
