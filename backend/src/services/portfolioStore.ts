@@ -1,124 +1,163 @@
-import fs from 'fs';
-import path from 'path';
+import { createClient } from '@supabase/supabase-js';
 
 export interface PortfolioStock {
-  symbol: string;
-  name: string;
-  sector: string;
-  theme: string;
-  priority: 'HIGH' | 'MEDIUM' | 'LOW';
-  addedAt: string;
+  symbol:    string;
+  name:      string;
+  sector:    string;
+  theme:     string;
+  priority:  'HIGH' | 'MEDIUM' | 'LOW';
+  addedAt:   string;
 }
 
 export interface Portfolio {
-  id: string;
-  name: string;
-  color: string;
+  id:          string;
+  name:        string;
+  color:       string;
   description: string;
-  stocks: PortfolioStock[];
-  createdAt: string;
-  updatedAt: string;
+  stocks:      PortfolioStock[];
+  createdAt:   string;
+  updatedAt:   string;
 }
 
-const DATA_FILE = path.join(__dirname, '../../data/portfolios.json');
-
-function ensureDataDir() {
-  const dir = path.dirname(DATA_FILE);
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+// ── Supabase client ───────────────────────────────────────────────────────────
+function getClient() {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_ANON_KEY;
+  if (!url || !key) throw new Error('SUPABASE_URL and SUPABASE_ANON_KEY env vars are required');
+  return createClient(url, key);
 }
 
-function readData(): Portfolio[] {
-  ensureDataDir();
-  if (!fs.existsSync(DATA_FILE)) return [];
-  try {
-    return JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8'));
-  } catch {
-    return [];
-  }
+// ── Row shape from Supabase (snake_case) ─────────────────────────────────────
+interface Row {
+  id:          string;
+  name:        string;
+  color:       string;
+  description: string;
+  stocks:      PortfolioStock[];
+  created_at:  string;
+  updated_at:  string;
 }
 
-function writeData(portfolios: Portfolio[]) {
-  ensureDataDir();
-  fs.writeFileSync(DATA_FILE, JSON.stringify(portfolios, null, 2));
+function rowToPortfolio(r: Row): Portfolio {
+  return {
+    id:          r.id,
+    name:        r.name,
+    color:       r.color,
+    description: r.description,
+    stocks:      r.stocks ?? [],
+    createdAt:   r.created_at,
+    updatedAt:   r.updated_at,
+  };
 }
 
 function generateId(): string {
   return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 }
 
+// ── Store ─────────────────────────────────────────────────────────────────────
 export const portfolioStore = {
-  getAll(): Portfolio[] {
-    return readData();
+
+  async getAll(): Promise<Portfolio[]> {
+    const { data, error } = await getClient()
+      .from('portfolios')
+      .select('*')
+      .order('created_at', { ascending: true });
+    if (error) throw error;
+    return (data as Row[]).map(rowToPortfolio);
   },
 
-  getById(id: string): Portfolio | null {
-    return readData().find(p => p.id === id) || null;
+  async getById(id: string): Promise<Portfolio | null> {
+    const { data, error } = await getClient()
+      .from('portfolios')
+      .select('*')
+      .eq('id', id)
+      .maybeSingle();
+    if (error) throw error;
+    return data ? rowToPortfolio(data as Row) : null;
   },
 
-  create(data: { name: string; color: string; description?: string }): Portfolio {
-    const portfolios = readData();
-    const portfolio: Portfolio = {
-      id: generateId(),
-      name: data.name,
-      color: data.color,
-      description: data.description || '',
-      stocks: [],
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+  async create(input: { name: string; color: string; description?: string }): Promise<Portfolio> {
+    const now = new Date().toISOString();
+    const row = {
+      id:          generateId(),
+      name:        input.name,
+      color:       input.color,
+      description: input.description || '',
+      stocks:      [],
+      created_at:  now,
+      updated_at:  now,
     };
-    portfolios.push(portfolio);
-    writeData(portfolios);
-    return portfolio;
+    const { data, error } = await getClient()
+      .from('portfolios')
+      .insert(row)
+      .select()
+      .single();
+    if (error) throw error;
+    return rowToPortfolio(data as Row);
   },
 
-  update(id: string, data: Partial<Pick<Portfolio, 'name' | 'color' | 'description'>>): Portfolio | null {
-    const portfolios = readData();
-    const idx = portfolios.findIndex(p => p.id === id);
-    if (idx === -1) return null;
-    portfolios[idx] = { ...portfolios[idx], ...data, updatedAt: new Date().toISOString() };
-    writeData(portfolios);
-    return portfolios[idx];
+  async update(id: string, input: Partial<Pick<Portfolio, 'name' | 'color' | 'description'>>): Promise<Portfolio | null> {
+    const { data, error } = await getClient()
+      .from('portfolios')
+      .update({ ...input, updated_at: new Date().toISOString() })
+      .eq('id', id)
+      .select()
+      .maybeSingle();
+    if (error) throw error;
+    return data ? rowToPortfolio(data as Row) : null;
   },
 
-  delete(id: string): boolean {
-    const portfolios = readData();
-    const idx = portfolios.findIndex(p => p.id === id);
-    if (idx === -1) return false;
-    portfolios.splice(idx, 1);
-    writeData(portfolios);
-    return true;
+  async delete(id: string): Promise<boolean> {
+    const { error, count } = await getClient()
+      .from('portfolios')
+      .delete({ count: 'exact' })
+      .eq('id', id);
+    if (error) throw error;
+    return (count ?? 0) > 0;
   },
 
-  addStock(portfolioId: string, stock: Omit<PortfolioStock, 'addedAt'>): Portfolio | null {
-    const portfolios = readData();
-    const portfolio = portfolios.find(p => p.id === portfolioId);
+  async addStock(portfolioId: string, stock: Omit<PortfolioStock, 'addedAt'>): Promise<Portfolio | null> {
+    const portfolio = await this.getById(portfolioId);
     if (!portfolio) return null;
-    if (portfolio.stocks.find(s => s.symbol === stock.symbol)) return portfolio; // already exists
-    portfolio.stocks.push({ ...stock, addedAt: new Date().toISOString() });
-    portfolio.updatedAt = new Date().toISOString();
-    writeData(portfolios);
-    return portfolio;
+    if (portfolio.stocks.find(s => s.symbol === stock.symbol)) return portfolio;
+    const stocks = [...portfolio.stocks, { ...stock, addedAt: new Date().toISOString() }];
+    const { data, error } = await getClient()
+      .from('portfolios')
+      .update({ stocks, updated_at: new Date().toISOString() })
+      .eq('id', portfolioId)
+      .select()
+      .single();
+    if (error) throw error;
+    return rowToPortfolio(data as Row);
   },
 
-  removeStock(portfolioId: string, symbol: string): Portfolio | null {
-    const portfolios = readData();
-    const portfolio = portfolios.find(p => p.id === portfolioId);
+  async removeStock(portfolioId: string, symbol: string): Promise<Portfolio | null> {
+    const portfolio = await this.getById(portfolioId);
     if (!portfolio) return null;
-    portfolio.stocks = portfolio.stocks.filter(s => s.symbol !== symbol.toUpperCase());
-    portfolio.updatedAt = new Date().toISOString();
-    writeData(portfolios);
-    return portfolio;
+    const stocks = portfolio.stocks.filter(s => s.symbol !== symbol.toUpperCase());
+    const { data, error } = await getClient()
+      .from('portfolios')
+      .update({ stocks, updated_at: new Date().toISOString() })
+      .eq('id', portfolioId)
+      .select()
+      .single();
+    if (error) throw error;
+    return rowToPortfolio(data as Row);
   },
 
-  updateStock(portfolioId: string, symbol: string, data: Partial<Pick<PortfolioStock, 'priority' | 'theme'>>): Portfolio | null {
-    const portfolios = readData();
-    const portfolio = portfolios.find(p => p.id === portfolioId);
+  async updateStock(portfolioId: string, symbol: string, input: Partial<Pick<PortfolioStock, 'priority' | 'theme'>>): Promise<Portfolio | null> {
+    const portfolio = await this.getById(portfolioId);
     if (!portfolio) return null;
-    const stock = portfolio.stocks.find(s => s.symbol === symbol.toUpperCase());
-    if (!stock) return null;
-    Object.assign(stock, data);
-    portfolio.updatedAt = new Date().toISOString();
-    writeData(portfolios);
-    return portfolio;
+    const stocks = portfolio.stocks.map(s =>
+      s.symbol === symbol.toUpperCase() ? { ...s, ...input } : s
+    );
+    const { data, error } = await getClient()
+      .from('portfolios')
+      .update({ stocks, updated_at: new Date().toISOString() })
+      .eq('id', portfolioId)
+      .select()
+      .single();
+    if (error) throw error;
+    return rowToPortfolio(data as Row);
   },
 };

@@ -15,7 +15,18 @@
       "Bash(which git:*)",
       "Bash(which brew:*)",
       "Bash(brew install:*)",
-      "Bash(git rm:*)"
+      "Bash(git rm:*)",
+      "Bash(git config:*)",
+      "Bash(gh auth:*)",
+      "Read(//Users/ugozunardi/.config/gh/**)",
+      "Bash(git remote:*)",
+      "Read(//Users/ugozunardi/.local/share/com.vercel.cli/**)",
+      "Bash(security find-generic-password:*)",
+      "Bash(find:*)",
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(VERCEL_TOKEN=\"vca_18UvA56VlbvjbLZVqdnzR99CPVp5I8qg3BBlNEubNxUvXKfR691EGOEk\"\nPROJECT_ID=\"prj_FYknrViPKoFzNK5VVvxDorIO1LXx\"\nTEAM_ID=\"team_9BexgpW0frqa52RvaslKR9zo\"\n\ncurl -s -X POST \"https://api.vercel.com/v10/projects/$PROJECT_ID/env?teamId=$TEAM_ID\" \\\\\n  -H \"Authorization: Bearer $VERCEL_TOKEN\" \\\\\n  -H \"Content-Type: application/json\" \\\\\n  -d '{\"key\":\"SUPABASE_URL\",\"value\":\"https://sltonfyhwjcwvewtaigq.supabase.co\",\"type\":\"encrypted\",\"target\":[\"production\",\"preview\",\"development\"]}')",
+      "Bash(echo:*)"
     ]
   }
 }
