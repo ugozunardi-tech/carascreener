@@ -243,7 +243,7 @@ export default function PortfolioDashboard() {
             {updatedSymbols.size > 0 && <span style={{ color: '#00d4ff' }}> +{updatedSymbols.size}</span>}
           </span>
           {portfolio.id.includes('nvidia-sc') && (
-            <button onClick={() => navigate('/?portfolio=nvidia-sc')} className="flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold border transition-colors hover:opacity-80"
+            <button onClick={() => navigate('/network?portfolio=nvidia-sc')} className="flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold border transition-colors hover:opacity-80"
               style={{ borderColor: '#76b900', color: '#76b900', background: '#76b90015' }}>
               <Network className="w-2.5 h-2.5" /> VIEW NETWORK
             </button>
