@@ -217,7 +217,7 @@ async function searchSymbols(q: string) {
 export default function NetworkGraph() {
   const svgRef   = useRef<SVGSVGElement>(null);
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   // ── State ─────────────────────────────────────────────────────────────────
   const [tooltip,           setTooltip]           = useState<Tooltip | null>(null);
@@ -225,7 +225,7 @@ export default function NetworkGraph() {
   const [selectedEdgeType,  setSelectedEdgeType]  = useState('all');
   const [selectedRisk,      setSelectedRisk]      = useState('all');
   const [showExtended,      setShowExtended]      = useState(false);
-  const [selectedNodeId,    setSelectedNodeId]    = useState<string | null>(null);
+  const [selectedNodeId,    setSelectedNodeId]    = useState<string | null>(() => searchParams.get('node') || null);
   const [hoveredNodeId,     setHoveredNodeId]     = useState<string | null>(null);
 
   // Scenario
@@ -258,6 +258,27 @@ export default function NetworkGraph() {
   const searchRef      = useRef<HTMLDivElement>(null);
   const searchDebounce = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // Panel resize
+  const [panelWidth,    setPanelWidth]    = useState(296);
+  const panelResizing   = useRef(false);
+  const panelStartX     = useRef(0);
+  const panelStartW     = useRef(296);
+
+  // Scenario hint (pulsing dot until first use)
+  const [scenarioHintDismissed, setScenarioHintDismissed] = useState(
+    () => localStorage.getItem('scenario_hint_dismissed') === '1'
+  );
+
+  // Graph loading skeleton
+  const [graphReady, setGraphReady] = useState(false);
+
+  // Mobile: filter drawer + panel visibility
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
+  const [showMobilePanel,   setShowMobilePanel]   = useState(false);
+
+  // AI retry callback
+  const aiRetryFn = useRef<(() => void) | null>(null);
+
   // D3 refs
   const simRef     = useRef<d3.Simulation<SimNode, SimEdge> | null>(null);
   const zoomRef    = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
@@ -267,6 +288,14 @@ export default function NetworkGraph() {
   // Refs for D3 click handler (avoid graph rebuild on scenario toggle)
   const scenarioActiveRef = useRef(false);
   useEffect(() => { scenarioActiveRef.current = scenarioActive; }, [scenarioActive]);
+
+  // Sync selected node to URL
+  useEffect(() => {
+    setSearchParams(prev => {
+      if (selectedNodeId) { prev.set('node', selectedNodeId); } else { prev.delete('node'); }
+      return prev;
+    }, { replace: true });
+  }, [selectedNodeId, setSearchParams]);
 
   // All nodes & edges merged (static + dynamic)
   const allNodes = useMemo(() => {
@@ -318,6 +347,27 @@ export default function NetworkGraph() {
     });
     return filteredNodes.filter(n => connected.has(n.id));
   }, [filteredNodes, filteredEdges, selectedEdgeType]);
+
+  // ── Simulation-level data (no edge-type or risk sub-filter) ───────────────
+  // Only changes when portfolio / extended / dynNodes change, NOT on every
+  // selectedEdgeType / selectedRisk change — prevents full D3 rebuilds on filter.
+  const simulationNodes = useMemo(() =>
+    enrichedAllNodes.filter(n => {
+      if (n.portfolio === 'extended' && !showExtended) return false;
+      if (n.portfolio === 'nvidia-sc' && selectedPortfolio !== 'nvidia-sc' && !showExtended) return false;
+      if (n.portfolio === 'dynamic') return true;
+      if (selectedPortfolio !== 'all' && n.portfolio !== selectedPortfolio) return false;
+      return true;
+    }),
+    [enrichedAllNodes, showExtended, selectedPortfolio]
+  );
+
+  const portfolioEdges = useMemo(() => {
+    const ids = new Set(simulationNodes.map(n => n.id));
+    return allEdges.filter(e =>
+      ids.has(e.source as string) && ids.has(e.target as string)
+    );
+  }, [allEdges, simulationNodes]);
 
   // Auto-compute failure impact when a node is selected (silent BFS)
   useEffect(() => {
@@ -397,6 +447,7 @@ export default function NetworkGraph() {
 
   // Fetch AI supply chain for a symbol
   const loadAISupplyChain = useCallback(async (symbol: string, name: string) => {
+    aiRetryFn.current = () => loadAISupplyChain(symbol, name);
     setAiError('');
     setAiLoading(true);
     setSearchResults([]);
@@ -430,7 +481,7 @@ export default function NetworkGraph() {
       // Select the origin node
       setTimeout(() => setSelectedNodeId(symbol), 300);
     } catch {
-      setAiError('AI supply chain generation failed. Check backend.');
+      setAiError(`Failed to generate supply chain for ${symbol}.`);
     } finally {
       setAiLoading(false);
     }
@@ -480,8 +531,8 @@ export default function NetworkGraph() {
     zoomRef.current = zoom;
     svg.on('click', () => setSelectedNodeId(null));
 
-    const nodes: SimNode[] = visibleNodes.map(n => ({ ...n }));
-    const edges: SimEdge[] = filteredEdges.map(e => ({ ...e })) as SimEdge[];
+    const nodes: SimNode[] = simulationNodes.map(n => ({ ...n }));
+    const edges: SimEdge[] = portfolioEdges.map(e => ({ ...e })) as SimEdge[];
 
     // Scale repulsion: sparse graphs need much weaker charge so nodes don't fly apart
     const densityScale = Math.min(1, nodes.length / 25);
@@ -700,12 +751,13 @@ export default function NetworkGraph() {
       const tx = W / 2 - scale * (minX + maxX) / 2;
       const ty = H / 2 - scale * (minY + maxY) / 2;
       svg.transition().duration(600).call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
+      setGraphReady(true);
     }, 1200);
-  }, [visibleNodes, filteredEdges]);
+  }, [simulationNodes, portfolioEdges]);
 
   useEffect(() => {
     if (!svgRef.current) return;
-    setSelectedNodeId(null); setImpactMap(null);
+    setSelectedNodeId(null); setImpactMap(null); setGraphReady(false);
     buildGraph();
     return () => { simRef.current?.stop(); };
   }, [buildGraph]);
@@ -871,6 +923,61 @@ export default function NetworkGraph() {
     });
   }, [impactMap]);
 
+  // ── Edge-type filter: pure visual update, no simulation rebuild ──────────
+  useEffect(() => {
+    const es = edgeSelRef.current; const ns = nodeSelRef.current;
+    if (!es || !ns || selectedNodeId || impactMap || graphMode !== 'network') return;
+    if (selectedEdgeType === 'all') {
+      es.attr('opacity', 0.4).attr('stroke', (d: SimEdge) => EDGE_STYLE[d.type]?.color ?? '#475569');
+      ns.select('.node-circle').attr('opacity', 1)
+        .attr('fill', (d: SimNode) => d.risk === 'critical' ? '#ff174418' : d.risk === 'high' ? '#ff980015' : `${d.color}14`)
+        .attr('stroke', (d: SimNode) => d.risk === 'critical' ? '#ff174480' : d.risk === 'high' ? '#ff980070' : d.color)
+        .attr('stroke-width', (d: SimNode) => d.portfolio === 'dynamic' ? 2 : d.risk === 'critical' ? 2 : 1.5)
+        .attr('r', (d: SimNode) => nodeRadius(d.importance));
+      ns.selectAll('text').attr('opacity', 1);
+      ns.select('.risk-ring').attr('opacity', (d: SimNode) => d.risk === 'low' ? 0 : d.risk === 'critical' ? 0.85 : 0.55);
+      return;
+    }
+    const connectedNodes = new Set<string>();
+    es.each((d: SimEdge) => {
+      if (d.type === selectedEdgeType) {
+        connectedNodes.add(typeof d.source === 'string' ? d.source : (d.source as SimNode).id);
+        connectedNodes.add(typeof d.target === 'string' ? d.target : (d.target as SimNode).id);
+      }
+    });
+    es.attr('opacity', (d: SimEdge) => d.type === selectedEdgeType ? 0.55 : 0.02);
+    ns.each(function(d: SimNode) {
+      const on = connectedNodes.has(d.id);
+      d3.select(this).select('.node-circle').attr('opacity', on ? 1 : 0.05);
+      d3.select(this).selectAll('text').attr('opacity', on ? 1 : 0.05);
+      d3.select(this).select('.risk-ring').attr('opacity', on && d.risk !== 'low' ? (d.risk === 'critical' ? 0.85 : 0.55) : 0);
+    });
+  }, [selectedEdgeType, selectedNodeId, impactMap, graphMode, selectedRisk]);
+
+  // ── Risk filter: pure visual update, no simulation rebuild ────────────────
+  useEffect(() => {
+    const es = edgeSelRef.current; const ns = nodeSelRef.current;
+    if (!es || !ns || selectedNodeId || impactMap || graphMode !== 'network' || selectedEdgeType !== 'all') return;
+    if (selectedRisk === 'all') {
+      ns.select('.node-circle').attr('opacity', 1)
+        .attr('fill', (d: SimNode) => d.risk === 'critical' ? '#ff174418' : d.risk === 'high' ? '#ff980015' : `${d.color}14`)
+        .attr('stroke', (d: SimNode) => d.risk === 'critical' ? '#ff174480' : d.risk === 'high' ? '#ff980070' : d.color)
+        .attr('stroke-width', (d: SimNode) => d.portfolio === 'dynamic' ? 2 : d.risk === 'critical' ? 2 : 1.5)
+        .attr('r', (d: SimNode) => nodeRadius(d.importance));
+      ns.selectAll('text').attr('opacity', 1);
+      ns.select('.risk-ring').attr('opacity', (d: SimNode) => d.risk === 'low' ? 0 : d.risk === 'critical' ? 0.85 : 0.55);
+      es.attr('opacity', 0.4).attr('stroke', (d: SimEdge) => EDGE_STYLE[d.type]?.color ?? '#475569');
+      return;
+    }
+    ns.each(function(d: SimNode) {
+      const on = d.risk === selectedRisk;
+      d3.select(this).select('.node-circle').attr('opacity', on ? 1 : 0.05);
+      d3.select(this).selectAll('text').attr('opacity', on ? 1 : 0.05);
+      d3.select(this).select('.risk-ring').attr('opacity', on && d.risk !== 'low' ? (d.risk === 'critical' ? 0.85 : 0.55) : 0);
+    });
+    es.attr('opacity', 0.06);
+  }, [selectedRisk, selectedNodeId, impactMap, graphMode, selectedEdgeType]);
+
   // ── Scenario run ──────────────────────────────────────────────────────────
   const runScenario = useCallback(() => {
     if (!scenarioOrigin) return;
@@ -891,6 +998,24 @@ export default function NetworkGraph() {
   const zoomIn    = () => svgRef.current && zoomRef.current && d3.select(svgRef.current).call(zoomRef.current.scaleBy, 1.4);
   const zoomOut   = () => svgRef.current && zoomRef.current && d3.select(svgRef.current).call(zoomRef.current.scaleBy, 0.7);
   const resetZoom = () => svgRef.current && zoomRef.current && d3.select(svgRef.current).call(zoomRef.current.transform, d3.zoomIdentity.scale(0.8));
+
+  const onResizeStart = useCallback((e: React.MouseEvent) => {
+    panelResizing.current = true;
+    panelStartX.current   = e.clientX;
+    panelStartW.current   = panelWidth;
+    const onMove = (ev: MouseEvent) => {
+      if (!panelResizing.current) return;
+      const delta = panelStartX.current - ev.clientX;
+      setPanelWidth(Math.max(240, Math.min(520, panelStartW.current + delta)));
+    };
+    const onUp = () => {
+      panelResizing.current = false;
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+    };
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+  }, [panelWidth]);
 
   const PORTFOLIOS = ['all', 'ai', 'robotics', 'watchlist', 'multi', 'nvidia-sc'];
   const EDGE_TYPES = ['all', 'supplier', 'foundry', 'material', 'customer', 'technology', 'power', 'testing'];
@@ -972,9 +1097,32 @@ export default function NetworkGraph() {
           </div>
         )}
 
-        {aiError && <span className="text-[10px] text-accent-red">{aiError}</span>}
+        {aiError && (
+          <div className="flex items-center gap-1.5 px-2 py-1 rounded-lg border" style={{ background: '#ff174412', borderColor: '#ff174440' }}>
+            <AlertTriangle className="w-3 h-3 text-accent-red flex-shrink-0" />
+            <span className="text-[9px] text-accent-red truncate max-w-[160px]">{aiError}</span>
+            {aiRetryFn.current && (
+              <button onClick={() => aiRetryFn.current?.()} className="text-[9px] text-text-muted hover:text-text-primary underline flex-shrink-0">Retry</button>
+            )}
+            <button onClick={() => { setAiError(''); aiRetryFn.current = null; }} className="opacity-60 hover:opacity-100 flex-shrink-0">
+              <X className="w-3 h-3 text-text-muted" />
+            </button>
+          </div>
+        )}
 
         <div className="w-px h-4 bg-border-primary" />
+
+        {/* Mobile: compact filter button (visible below md) */}
+        <button
+          onClick={() => setShowMobileFilters(v => !v)}
+          className={`md:hidden flex items-center gap-1 px-2 py-1 text-[9px] font-bold rounded-lg border transition-all ${showMobileFilters ? 'bg-accent-cyan/15 border-accent-cyan/40 text-accent-cyan' : 'border-border-primary text-text-muted'}`}
+        >
+          <Filter className="w-3 h-3" />
+          Filters
+          {(selectedEdgeType !== 'all' || selectedRisk !== 'all') && (
+            <span className="w-1.5 h-1.5 rounded-full bg-accent-yellow" />
+          )}
+        </button>
 
         {/* Portfolio filter */}
         <div className="flex items-center gap-1">
@@ -998,8 +1146,8 @@ export default function NetworkGraph() {
 
         <div className="w-px h-4 bg-border-primary" />
 
-        {/* Edge type filter */}
-        <div className="flex items-center gap-1">
+        {/* Edge type filter — hidden on small screens */}
+        <div className="items-center gap-1 hidden md:flex">
           <Filter className="w-3 h-3 text-text-muted" />
           {EDGE_TYPES.map(t => (
             <button key={t} onClick={() => setSelectedEdgeType(t)}
@@ -1053,8 +1201,18 @@ export default function NetworkGraph() {
               title="Dependency Mode — edge width = concentration risk"
             >Dep.</button>
           </div>
-          <button onClick={() => { setScenarioActive(v => !v); if (scenarioActive) clearScenario(); }}
-            className={`flex items-center gap-1.5 px-2.5 py-1.5 text-[10px] font-bold rounded-lg border transition-all ${scenarioActive ? 'bg-accent-red/15 border-accent-red/40 text-accent-red' : 'border-border-primary text-text-muted hover:text-accent-yellow hover:border-accent-yellow/30'}`}>
+          <button
+            onClick={() => {
+              setScenarioActive(v => !v);
+              if (scenarioActive) clearScenario();
+              if (!scenarioHintDismissed) { setScenarioHintDismissed(true); localStorage.setItem('scenario_hint_dismissed', '1'); }
+            }}
+            className={`relative flex items-center gap-1.5 px-2.5 py-1.5 text-[10px] font-bold rounded-lg border transition-all ${scenarioActive ? 'bg-accent-red/15 border-accent-red/40 text-accent-red' : 'border-border-primary text-text-muted hover:text-accent-yellow hover:border-accent-yellow/30'}`}
+            title="Run supply chain shock scenarios (disruption, tariff, demand surge…)"
+          >
+            {!scenarioHintDismissed && !scenarioActive && (
+              <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-accent-yellow animate-ping pointer-events-none" />
+            )}
             <Zap className="w-3 h-3" />{scenarioActive ? 'Exit' : 'Scenario'}
           </button>
           <button onClick={zoomIn}    className="w-7 h-7 flex items-center justify-center rounded border border-border-primary text-text-muted hover:text-text-primary transition-colors"><ZoomIn    className="w-3.5 h-3.5" /></button>
@@ -1062,6 +1220,33 @@ export default function NetworkGraph() {
           <button onClick={resetZoom} className="w-7 h-7 flex items-center justify-center rounded border border-border-primary text-text-muted hover:text-text-primary transition-colors"><Maximize2 className="w-3.5 h-3.5" /></button>
         </div>
       </div>
+
+      {/* ── Mobile filter drawer ─────────────────────────────────────── */}
+      {showMobileFilters && (
+        <div className="md:hidden flex flex-col gap-2 px-3 py-2 border-b border-border-primary animate-fade-in" style={{ background: 'rgba(8,12,24,0.97)' }}>
+          <div className="flex items-center gap-1 flex-wrap">
+            <Filter className="w-3 h-3 text-text-muted flex-shrink-0" />
+            <span className="text-[8px] font-bold text-text-muted uppercase tracking-widest mr-1">Edge</span>
+            {EDGE_TYPES.map(t => (
+              <button key={t} onClick={() => setSelectedEdgeType(t)}
+                className={`px-1.5 py-0.5 text-[9px] font-mono rounded transition-all ${selectedEdgeType === t ? 'text-bg-primary bg-accent-cyan' : 'text-text-muted border border-border-primary'}`}>
+                {t}
+              </button>
+            ))}
+          </div>
+          <div className="flex items-center gap-1 flex-wrap">
+            <AlertTriangle className="w-3 h-3 text-text-muted flex-shrink-0" />
+            <span className="text-[8px] font-bold text-text-muted uppercase tracking-widest mr-1">Risk</span>
+            {RISKS.map(r => (
+              <button key={r} onClick={() => setSelectedRisk(r)}
+                className={`px-1.5 py-0.5 text-[9px] font-bold rounded uppercase transition-all ${selectedRisk === r ? 'text-bg-primary' : 'text-text-muted border border-border-primary'}`}
+                style={selectedRisk === r ? { background: RISK_COLORS[r] } : {}}>
+                {r}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* ── Scenario bar ────────────────────────────────────────────────── */}
       {scenarioActive && (
@@ -1188,9 +1373,13 @@ export default function NetworkGraph() {
                           </div>
                         </td>
                         <td className="px-4 py-2.5 hidden lg:table-cell">
-                          <span className="text-[9px] text-text-muted italic">
-                            {nodes[0]?.note ?? ''}
-                          </span>
+                          <div className="space-y-0.5">
+                            {nodes.slice(0, 3).filter(n => n.note).map(n => (
+                              <div key={n.id} className="text-[9px] text-text-muted italic leading-snug">
+                                <span className="font-mono text-text-secondary not-italic">{n.id}:</span> {n.note}
+                              </div>
+                            ))}
+                          </div>
                         </td>
                       </tr>
                     );
@@ -1206,8 +1395,17 @@ export default function NetworkGraph() {
       <CommandStrip nodes={filteredNodes} edges={filteredEdges} onNodeSelect={id => { setSelectedNodeId(id); setGraphMode('network'); }} />
 
       {/* ── Canvas + Panel ──────────────────────────────────────────────── */}
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden relative">
         <div className="flex-1 relative overflow-hidden" style={{ background: 'radial-gradient(ellipse at 50% 40%, #0e1628 0%, #080c18 100%)' }}>
+          {/* Mobile: toggle panel button */}
+          <button
+            onClick={() => setShowMobilePanel(v => !v)}
+            className="absolute top-2 right-2 z-20 md:hidden flex items-center gap-1 px-2 py-1.5 text-[9px] font-bold rounded-lg border border-border-primary text-text-muted"
+            style={{ background: 'rgba(8,12,24,0.88)' }}
+          >
+            <LayoutList className="w-3 h-3" /> {showMobilePanel ? 'Hide' : 'Panel'}
+            {selectedNode && <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan" />}
+          </button>
 
           {/* Persistent micro-legend bar */}
           {showMicroLegend && (
@@ -1358,6 +1556,17 @@ export default function NetworkGraph() {
             </div>
           )}
 
+          {/* Graph build skeleton */}
+          {!graphReady && !aiLoading && (
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{ background: 'rgba(8,12,24,0.55)' }}>
+              <div className="text-center">
+                <div className="w-10 h-10 border-2 border-accent-cyan/30 border-t-accent-cyan rounded-full animate-spin mx-auto mb-3" />
+                <div className="text-[11px] font-bold text-accent-cyan">Building graph…</div>
+                <div className="text-[9px] text-text-muted mt-1 font-mono">{visibleNodes.length}n · {filteredEdges.length}e</div>
+              </div>
+            </div>
+          )}
+
           {/* AI loading overlay */}
           {aiLoading && (
             <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'rgba(8,12,24,0.7)' }}>
@@ -1370,9 +1579,20 @@ export default function NetworkGraph() {
           )}
         </div>
 
-        {/* ── Right panel (always visible) ─────────────────────────────── */}
-        <div className="flex-shrink-0 border-l border-border-primary flex flex-col overflow-y-auto"
-          style={{ background: 'rgba(8,12,24,0.98)', width: '296px' }}>
+        {/* ── Right panel (resizable; mobile: overlay) ─────────────────── */}
+        <div
+          className={`flex-shrink-0 border-l border-border-primary flex flex-col overflow-y-auto relative
+            ${showMobilePanel ? 'fixed inset-y-0 right-0 z-50 shadow-2xl' : 'hidden'}
+            md:flex md:relative md:inset-auto md:z-auto md:shadow-none`}
+          style={{ background: 'rgba(8,12,24,0.98)', width: `${panelWidth}px`, minWidth: '240px', maxWidth: '520px' }}>
+          {/* Drag-to-resize handle */}
+          <div
+            onMouseDown={onResizeStart}
+            className="absolute left-0 top-0 bottom-0 w-3 cursor-col-resize z-20 group flex items-stretch"
+            style={{ marginLeft: '-6px' }}
+          >
+            <div className="w-px h-full mx-auto bg-transparent group-hover:bg-accent-cyan/40 transition-colors" />
+          </div>
 
             {/* ── Overview (no selection, no scenario) ── */}
             {!selectedNode && !impactMap && (() => {
